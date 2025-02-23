@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo-flux", "demo-flux.csproj", "{FD13398A-1577-33BD-B324-052CD81F9364}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD13398A-1577-33BD-B324-052CD81F9364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD13398A-1577-33BD-B324-052CD81F9364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD13398A-1577-33BD-B324-052CD81F9364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD13398A-1577-33BD-B324-052CD81F9364}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69903A00-3D5F-4FE2-A4F5-0DF995804A8E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: demo-flux
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: ssh://git@github.com:TlStephen2011/demo-flux.git
+  secretRef:
+    name: flux-system
