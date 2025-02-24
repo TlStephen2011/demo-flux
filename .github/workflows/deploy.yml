@@ -19,7 +19,7 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
-        registry: registry.hextech.online
+        registry: https://registry.hextech.online
         username: ${{ secrets.HARBOR_USERNAME }}
         password: ${{ secrets.HARBOR_PASSWORD }}
 
@@ -28,7 +28,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: registry.hextech.online/k8s/demo-server:latest
+        tags: https://registry.hextech.online/k8s/demo-server:latest
 
     - name: Log out from Docker Hub
       run: docker logout registry.hextech.online
