@@ -8,3 +8,5 @@ spec:
   url: ssh://git@github.com/TlStephen2011/demo-flux.git
   secretRef:
     name: flux-system
+  ref:
+    branch: main
