@@ -1,49 +1,34 @@
-name: Build and Deploy to Harbor
+name: Docker Build and Push
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-      - name: Increase Docker client timeout
-        run: |
-          echo "DOCKER_CLIENT_TIMEOUT=300" >> $GITHUB_ENV
-          echo "COMPOSE_HTTP_TIMEOUT=300" >> $GITHUB_ENV        
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        registry: registry.hextech.online
+        username: ${{ secrets.HARBOR_USERNAME }}
+        password: ${{ secrets.HARBOR_PASSWORD }}
 
-      - name: Check access
-        run: curl -v https://registry.hextech.online/v2/
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: registry.hextech.online/k8s/demo-server:latest
 
-      - name: Log in to Harbor
-        run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login https://registry.hextech.online -u "${{ secrets.HARBOR_USERNAME }}" --password-stdin
-
-      - name: Build Docker image
-        run: |
-          docker build --tag https://registry.hextech.online/k8s/demo-server:${{ github.run_id }} .
-
-      - name: Push Docker image
-        run: |
-          docker push https://registry.hextech.online/k8s/demo-server:${{ github.run_id }}
-
-      - name: Update Kubernetes manifest
-        run: |
-          sed -i "s|image: https://registry.hextech.online/k8s/demo-server:.*|image: https://registry.hextech.online/k8s/demo-server:${{ github.run_id }}|" k8s-manifests/deployment.yaml
-
-      - name: Commit and push manifest
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add k8s-manifests/deployment.yaml
-          git commit -m "Update image tag to ${{ github.run_id }}"
-          git push
+    - name: Log out from Docker Hub
+      run: docker logout registry.hextech.online
