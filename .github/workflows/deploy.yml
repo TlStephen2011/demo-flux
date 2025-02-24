@@ -22,6 +22,9 @@ jobs:
           echo "DOCKER_CLIENT_TIMEOUT=300" >> $GITHUB_ENV
           echo "COMPOSE_HTTP_TIMEOUT=300" >> $GITHUB_ENV        
 
+      - name: Check access
+        run: curl -v https://registry.hextech.online/v2/
+
       - name: Log in to Harbor
         run: echo "${{ secrets.HARBOR_PASSWORD }}" | docker login https://registry.hextech.online -u "${{ secrets.HARBOR_USERNAME }}" --password-stdin
 
