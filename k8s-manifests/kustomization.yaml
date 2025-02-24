@@ -2,3 +2,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment.yaml
+patches:
+  - target:
+      group: ""
+      version: v1
+      kind: Service
+      name: weatherforecast-service
+      namespace: test
+    patch: |-
+      - op: replace
+        path: /spec/ports/0/nodePort
+        value: 30900
