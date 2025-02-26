@@ -1,6 +1,7 @@
 name: Docker Build and Push
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -19,7 +20,7 @@ jobs:
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
       with:
-        registry: http://registry.hextech.online
+        registry: https://registry.hextech.online
         username: ${{ secrets.HARBOR_USERNAME }}
         password: ${{ secrets.HARBOR_PASSWORD }}
 
