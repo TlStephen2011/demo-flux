@@ -1,25 +1,52 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weatherforecast-deployment
-  namespace: test
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2025-02-27T19:24:37Z"
+  generation: 2
   labels:
     app: weatherforecast
+    kustomize.toolkit.fluxcd.io/name: demo-flux
+    kustomize.toolkit.fluxcd.io/namespace: flux-system
+  name: weatherforecast-deployment
+  namespace: test
+  resourceVersion: "935156"
+  uid: fd07ce81-ddb7-4dd4-8d73-7144d269885d
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: weatherforecast
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
         app: weatherforecast
     spec:
       containers:
-        - name: weatherforecast
-          image: registry.hextech.online/k8s/demo-server:latest
-          ports:
-            - containerPort: 80
+      - image: registry.hextech.online/k8s/demo-server:latest
+        imagePullPolicy: Always
+        name: weatherforecast
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
