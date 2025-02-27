@@ -29,7 +29,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: https://registry.hextech.online/k8s/demo-server:latest
+        tags: registry.hextech.online/k8s/demo-server:latest
 
     - name: Log out from Docker Hub
       run: docker logout registry.hextech.online
