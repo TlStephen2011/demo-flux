@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: weatherforecast
-          image: demo-server
+          image: k8s/demo-server
           ports:
             - containerPort: 80
 ---
