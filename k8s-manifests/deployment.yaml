@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: weatherforecast
-          image: k8s/demo-server
+          image: registry.hextech.online/k8s/demo-server:latest
           ports:
             - containerPort: 80
 ---
