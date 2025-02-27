@@ -20,6 +20,4 @@ ENV ASPNETCORE_URLS=http://+:5000
 
 EXPOSE 5000
 
-RUN ls -la
-
 ENTRYPOINT ["dotnet", "demo-flux.dll"]
